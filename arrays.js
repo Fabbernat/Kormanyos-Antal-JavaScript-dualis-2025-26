@@ -6,7 +6,7 @@ Mindegyik feladatot függvénnyel old meg!
 3. getNumberOfHits - két paramétert kap, egy tömböt lottószámokkal és egy tömböt a tippekkel. Visszaadja, hogy a tippekből ány egyezett meg a lottószámokkal
 4. getMonthlyLotteryArrayNumbers - négy hét lottószámait adja vissza egy tömbben, mely a heti lottószámok tömbjét tartalmazza (meghívja a getOtosLotteryNumbers függvényt)
 5. getMonthlyLotteryArrayNumbers - paraméterként kapja a négy hét lottószámainak tömbjét és visszaadja, hogy a hónapban mely számokat húzták ki. A viszatérő listában, minden szám csak egyszer szerepelhet.
-6. monthlyStatistics - paranéterként kapha a havi lottószámok tömbjét. Egy tömböt ad vissza, melynek elemei tömbök, melyben az első elem a lottószám, a második eleme, hogy a hónapban a számot hányszor húzták ki.*/
+6. monthlyStatistics - paraméterként kapha a havi lottószámok tömbjét. Egy tömböt ad vissza, melynek elemei tömbök, melyben az első elem a lottószám, a második eleme, hogy a hónapban a számot hányszor húzták ki.*/
 
 function getOtosLotteryNumbers() {
   const numbers = [];
@@ -38,10 +38,30 @@ function getNumberOfHits(lottoszamok, tippek) {
 }
 
 function getMonthlyLotteryArrayNumbers() {
+    let monthlyLotteryArrayNumbers = [];
+    for (let i = 0; i < 4; i++) {
+        monthlyLotteryArrayNumbers.push(getOtosLotteryNumbers());
+    }
+
+    return monthlyLotteryArrayNumbers;
 }
 
 function getMonthlyLotteryArrayUniqueNumbers() {
+    return [...new Set(getMonthlyLotteryArrayNumbers().flat())];
 }
 
-function monthlyStatistics() {
+function monthlyStatistics(monthlyLotteryArrayNumbers) {
+    let statistics = [];
+    for (let i = 10; i < 100; i++) {
+        let count = 0;
+        monthlyLotteryArrayNumbers.flat().forEach(number => {
+            if(number == i) {
+                ++count;
+            }
+        });
+        if(count > 0) {
+            statistics.push([i, count]);
+        }
+    }
+    return statistics;
 }
