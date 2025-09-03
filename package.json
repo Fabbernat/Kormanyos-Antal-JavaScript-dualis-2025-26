@@ -1,0 +1,21 @@
+{
+  "name": "javascript-dualis-2025-26",
+  "version": "1.0.0",
+  "main": "arrays.js",
+  "scripts": {
+    "type": "module",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fabbernat/JavaScript-dualis-2025-26.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Fabbernat/JavaScript-dualis-2025-26/issues"
+  },
+  "homepage": "https://github.com/Fabbernat/JavaScript-dualis-2025-26#readme",
+  "description": ""
+}
