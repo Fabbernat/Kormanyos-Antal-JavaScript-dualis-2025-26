@@ -1,0 +1,5 @@
+const tanulok = [
+  new Tanulo("Anna", "anna@example.com"),
+  new Tanulo("Bence", "bence@example.com"),
+  new Tanulo("Csaba", "csaba@example.com"),
+];
