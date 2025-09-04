@@ -10,7 +10,7 @@ function sortByLength(strArray){
 }
 
 /**
- *  - String tömböt a szavak hossza szerint rendezi ABC sorrendbe és a rendezett tömböz adja vissza
+ *  - String tömböt a szavak hossza szerint rendezi ABC sorrendbe és a rendezett tömböt adja vissza
  */
 function sortByLengthAsc(strArray){
     return strArray.sort();
@@ -40,14 +40,30 @@ numbersBetween5And15 = numberArray.filter(number => number > 5 && number < 15);
 
 /**
  * - számokat tartalmazó tömb minden eleme páratlan-e. Visszatérési érték true vagy false
+ * @returns boolean
  */
-function isAllOdd(){
-
+function isAllOdd(array){
+    for (let i = 0; i < array.length; i++) {
+        const num = array[i];
+        if (num % 2 === 0) {
+            return false;
+        }
+    }
+    return true;
 }
-function hasEven(){
 
+/**
+ *  - számokat tartalmazó tömb tartalmaz-e páros elemet. Visszatérési érték true vagy false
+ */
+function hasEven(array){
+    return !isAllOdd(array);
 }
 
-function sigma(){
-
+function sigma(array){
+    let product = 1;
+    for (let i = 0; i < array.length; i++) {
+        product *= array[i];
+        
+    }
+    return product;
 }
