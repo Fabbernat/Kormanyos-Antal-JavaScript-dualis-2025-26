@@ -44,9 +44,16 @@ console.log(addAsterisk(fruits));
 /**
  *  - számokat tartalmazó tömb 5 és 15 közötti elemeit adja vissza egy tömbben
  */
-function between5And15(numberArray) {
+function between5And15Exclusive(numberArray) {
   numbersBetween5And15 = numberArray.filter(
     (number) => number > 5 && number < 15
+  );
+  return numbersBetween5And15;
+}
+
+function between5And15Inclusive(numberArray) {
+  numbersBetween5And15 = numberArray.filter(
+    (number) => number => 5 && number =< 15
   );
   return numbersBetween5And15;
 }
@@ -58,11 +65,9 @@ console.log(between5And15(numbers));
  * @returns boolean
  */
 function isAllOdd(numberArray) {
-  for (let i = 0; i < numberArray.length; i++) {
+  for (let i = 0; i < numberArray.length; ++i) {
     const num = numberArray[i];
-    if (num % 2 === 0) {
-      return false;
-    }
+    if (num % 2 === 0) return false;
   }
   return true;
 }
@@ -83,7 +88,7 @@ console.log(hasEven(numbers));
  */
 function sigma(numberArray) {
   let product = 1;
-  for (let i = 0; i < numberArray.length; i++) {
+  for (let i = 0; i < numberArray.length; ++i) {
     product *= numberArray[i];
   }
   return product;
