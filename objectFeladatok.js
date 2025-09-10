@@ -72,3 +72,7 @@ console.log(orarend.getHetiOrak());
 
 orarend._hetiOrak[0].hetfo.push("Fizika");
 console.log(orarend.getHetiOrak());
+
+for (let i = 0; i < orarend.getHetiOrak().length(); ++i) {
+  console.log("A(z) ${i + 1}. nap órarendje: ${"".join(ora for ora in orarend.getHetiOrak[i])}");
+}
