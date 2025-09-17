@@ -2,7 +2,7 @@
   "name": "javascript-dualis-2025-26",
   "version": "1.0.0",
   "description": "Kormáyos Antalnak js scriptek a Dualis JavaScript kurzusához",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "type": "module",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,6 +17,5 @@
   "bugs": {
     "url": "https://github.com/Fabbernat/JavaScript-dualis-2025-26/issues"
   },
-  "homepage": "https://github.com/Fabbernat/JavaScript-dualis-2025-26#readme",
-  "description": ""
+  "homepage": "https://github.com/Fabbernat/JavaScript-dualis-2025-26#readme"
 }
