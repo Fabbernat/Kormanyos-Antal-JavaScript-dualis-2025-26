@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/Fabbernat/JavaScript-dualis-2025-26/issues"
   },
-  "homepage": "https://github.com/Fabbernat/JavaScript-dualis-2025-26#readme"
+  "homepage": "https://github.com/Fabbernat/JavaScript-dualis-2025-26#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
 }
