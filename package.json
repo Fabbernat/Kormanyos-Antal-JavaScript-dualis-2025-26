@@ -1,7 +1,8 @@
 {
   "name": "javascript-dualis-2025-26",
   "version": "1.0.0",
-  "main": "arrays.js",
+  "description": "Kormáyos Antalnak js scriptek a Dualis JavaScript kurzusához",
+  "main": "index.js",
   "scripts": {
     "type": "module",
     "test": "echo \"Error: no test specified\" && exit 1"
