@@ -1,9 +1,5 @@
 import express from "express";
 
-const PORT = 3000;
-const app = express();
-
-app.use(express.json());
 
 let users = [
   { id: 1, name: "Adam", email: "Adam@gmail.com", password: "adam" },
@@ -11,6 +7,16 @@ let users = [
   { id: 3, name: "kutya", email: "kutya@gmail.com", password: "kutya" },
   { id: 4, name: "allat", email: "allat@gmail.com", password: "allat" },
 ];
+
+
+const PORT = 3000;
+const app = express();
+
+app.use(express.json());
+
+app.listen(PORT, () => {
+  console.log(`Server runs on http://localhost:${PORT}`);
+});
 
 //GET
 app.get("/users", (req, res) => {
@@ -22,7 +28,7 @@ app.get("/users/:id", (req, res) => {
   // const user = users.filter((user) => user.id === userId);
   const user = users.find((user) => user.id === userId);
   console.log(user);
-  res.status(200).json(user[99]);
+  res.status(200).json(user);
 });
 
 //POST
@@ -103,9 +109,11 @@ app.patch("/users/:id", (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.send("<h1>Hello World!</h1>");
+  res.send("<h1>Hello World!</h1><a href='/users'>Go to users</a>");
 });
 
 app.listen(PORT, () => {
   console.log(`Server runs on http://localhost:${PORT}`);
 });
+
+// Nothing changes in the browser (tried in Mozilla Firefox, Microsoft Edge and Google Chrome), no matter what I modify on this app.js. I can eveny write syntaaxtically incorrect code or deete the whole, it still does not modify. I tried F5, Ctrl+F5, deleting every cookie, but I'm not a Node expert so I have no idea what happends under the hood. I run the server with npm run dev.
