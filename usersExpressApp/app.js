@@ -18,7 +18,14 @@ app.listen(PORT, () => {
   console.log(`Server runs on http://localhost:${PORT}`);
 });
 
+
+
 //GET
+
+app.get("/", (req, res) => {
+  res.send("<h1>Hello World!</h1><a href='/users'>Go to users</a>");
+});
+
 app.get("/users", (req, res) => {
   res.status(200).json(users);
 });
@@ -30,6 +37,8 @@ app.get("/users/:id", (req, res) => {
   console.log(user);
   res.status(200).json(user);
 });
+
+
 
 //POST
 app.post("/users", (req, res) => {
@@ -47,6 +56,8 @@ app.post("/users", (req, res) => {
   users.push(user);
   res.status(201).json(user);
 });
+
+
 
 //PUT
 app.put("/users/:id", (req, res) => {
@@ -68,6 +79,8 @@ app.put("/users/:id", (req, res) => {
   res.status(200).json(user);
 });
 
+
+
 //DELETE
 app.delete("/users/:id", (req, res) => {
   const id = +req.params.id;
@@ -84,6 +97,8 @@ app.delete("/users/:id", (req, res) => {
 
   res.status(200).json({ message: "Deleted succesfully" });
 });
+
+
 
 //PATCH
 app.patch("/users/:id", (req, res) => {
@@ -106,14 +121,6 @@ app.patch("/users/:id", (req, res) => {
   users[index] = user;
 
   res.status(200).json(user);
-});
-
-app.get("/", (req, res) => {
-  res.send("<h1>Hello World!</h1><a href='/users'>Go to users</a>");
-});
-
-app.listen(PORT, () => {
-  console.log(`Server runs on http://localhost:${PORT}`);
 });
 
 // Nothing changes in the browser (tried in Mozilla Firefox, Microsoft Edge and Google Chrome), no matter what I modify on this app.js. I can eveny write syntaaxtically incorrect code or deete the whole, it still does not modify. I tried F5, Ctrl+F5, deleting every cookie, but I'm not a Node expert so I have no idea what happends under the hood. I run the server with npm run dev.
