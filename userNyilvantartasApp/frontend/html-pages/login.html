@@ -22,37 +22,51 @@
 
     <main id="page">
         <div style="margin: auto; width: 50%; text-align: center">
-            <form id="loginWithEmailForm" action="#" method="POST" enctype="multipart/form-data" name="loginWithEmailForm">
+            <form id="loginWithEmailForm" action="#" method="POST" enctype="multipart/form-data"
+                name="loginWithEmailForm">
                 <fieldset>
                     <legend>Bejelentkezés</legend>
-                   <h2> Bejelentkezés email címmel </h2>
+                    <h2> Bejelentkezés email címmel </h2>
                     <label>
                         E-mail: <br />
-                        <input type="email" name="email" />
+                        <input id="emailauth-email" type="email" name="email" required />
                     </label><br />
+
+
                     <label>
                         Jelszó: <br />
-                        <input type="password" name="jelszo" />
+                        <input id="emailauth-password" type="password" name="password" required /><br />
+                        <input type="checkbox" onclick="togglePassword('emailauth-password')"> Show password
                     </label><br />
-                    <input type="reset" name="reset-btn" value="Törlés" />
-                    <input type="submit" name="login-submit-btn" value="Bejelentkezés" />
-                    </fieldset>
+
+
+                    <input id="emailauth-reset" type="reset" name="reset-btn" value="Törlés" />
+                    <input id="emailauth-submit" type="submit" name="login-submit-btn" value="Bejelentkezés" />
+                </fieldset>
             </form>
-            <form id="loginWithUsernameForm" action="#" method="POST" enctype="multipart/form-data" name="loginWithUsernameForm">
+
+            <h4> ---- vagy ---- </h4>
+            
+            <form id="loginWithUsernameForm" action="#" method="POST" enctype="multipart/form-data"
+                name="loginWithUsernameForm">
                 <fieldset>
-                    <h4> ---- vagy ---- </h4>
 
                     <h2> Bejelentkezés felhasználónévvel </h2>
                     <label>
                         Felhasználónév: <br />
-                        <input type="text" name="felhasznalonev" />
+                        <input id="usernameauth-username" type="text" name="username" required />
                     </label><br />
+
+
                     <label>
                         Jelszó: <br />
-                        <input type="password" name="jelszo" />
+                        <input id="usernameauth-password" type="password" name="password" required /><br />
+                        <input type="checkbox" onclick="togglePassword('usernameauth-password')"> Show password
                     </label><br />
-                    <input type="reset" name="reset-btn" value="Törlés" />
-                    <input type="submit" name="login-submit-btn" value="Bejelentkezés" />
+
+
+                    <input id="usernameauth-reset" type="reset" name="reset-btn" value="Törlés" />
+                    <input id="usernameauth-submit" type="submit" name="login-submit-btn" value="Bejelentkezés" />
                 </fieldset>
             </form>
             <hr>
@@ -66,6 +80,11 @@
         </div>
     </main>
     <script>
+        function togglePassword(fieldId) {
+            const field = document.getElementById(fieldId);
+            field.type = field.type === "password" ? "text" : "password";
+        }
+
         const dummyLoginDataToAccept = {
             "test": "test",
             "admin": "123456",
@@ -84,50 +103,55 @@
 
         if (!authMethod) {
             console.error("No login form found!");
-        } else {
-            authMethod.addEventListener("submit", async (e) => {
-            e.preventDefault();
+        } 
         
-            // Trim input
-            const username = e.target["felhasznalonev"].value.trim();
-            const password = e.target["jelszo"].value.trim();
-            let errors = [];
+        [loginWithEmailForm, loginWithUsernameForm].forEach(form => {
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-            // Validation
-            if (username === "") errors.push("A felhasználónév megadása kötelező!");
-            if (password === "") errors.push("A jelszó megadása kötelező!");
+        const isEmailAuth = e.target.id === "loginWithEmailForm";
+        const authValue = isEmailAuth ? e.target["email"].value.trim() : e.target["username"].value.trim();
+        const password = e.target["password"].value.trim();
+        let errors = [];
 
-            // Dummy login check
-            if (username in dummyLoginDataToAccept && password === dummyLoginDataToAccept[username]) {
-                messageBox.style.color = "green";
-                messageBox.innerHTML = "Sikeres teszt bejelentkezés!";
-                errorBox.innerText = "";
-                return;
-            }
+        if (!authValue) errors.push(isEmailAuth ? "Az email cím megadása kötelező!" : "A felhasználónév megadása kötelező!");
+        if (authValue.includes(' ')) errors.push("A felhasználónév vagy email cím nem tartalmazhat szóközt!");
+        if (!password) errors.push("A jelszó megadása kötelező!");
 
-            // Show validation errors
-            if (errors.length > 0) {
-                messageBox.style.color = "red";
-                messageBox.innerHTML = errors.join("<br>");
-                errorBox.innerText = errors.join("\n");
-                return;
-            }
+        if (errors.length > 0) {
+            errorBox.innerHTML = "";
+            errors.forEach(err => {
+                const errDiv = document.createElement("div");
+                errDiv.style.color = "red";
+                errDiv.textContent = err;
+                errorBox.appendChild(errDiv);
+            });
+            return;
+        }
 
-            // Fetch users.json for demo (errors logged)
-            try {
-                const fiokok = await fetch('json/users.json');
-                if (!fiokok.ok) throw new Error('Hálózati hiba a users.json betöltésekor');
-                const data = await fiokok.json();
-                console.log("Users.json loaded:", data);
-            } catch (error) {
-                console.error("Hiba:", error);
-            }
-
-            // Successful login message
+        // Dummy login
+        if (authValue in dummyLoginDataToAccept && password === dummyLoginDataToAccept[authValue]) {
             messageBox.style.color = "green";
-            messageBox.innerHTML = "Sikeres bejelentkezés!";
-            errorBox.innerText = "";
-        });
+            messageBox.innerHTML = "Sikeres teszt bejelentkezés!";
+            errorBox.innerHTML = "";
+            return;
+        }
+
+        // Attempt fetch
+        try {
+            const fiokok = await fetch('json/users.json');
+            if (!fiokok.ok) throw new Error('Hálózati hiba a users.json betöltésekor');
+            const data = await fiokok.json();
+            console.log("Users.json loaded:", data);
+        } catch (error) {
+            console.error("Hiba:", error);
+        }
+
+        messageBox.style.color = "green";
+        messageBox.innerHTML = "Sikeres bejelentkezés!";
+        errorBox.innerHTML = "";
+    });
+});
     </script>
 
 </body>
