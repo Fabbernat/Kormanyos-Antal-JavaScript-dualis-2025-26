@@ -22,10 +22,27 @@
 
     <main id="page">
         <div style="margin: auto; width: 50%; text-align: center">
-            <h1>Bejelentkezés</h1>
-            <form id="loginForm" action="#" method="POST" enctype="multipart/form-data" name="loginForm">
+            <form id="loginWithEmailForm" action="#" method="POST" enctype="multipart/form-data" name="loginWithEmailForm">
                 <fieldset>
-                    <legend>Bejelentkezés adatok</legend>
+                    <legend>Bejelentkezés</legend>
+                   <h2> Bejelentkezés email címmel </h2>
+                    <label>
+                        E-mail: <br />
+                        <input type="email" name="email" />
+                    </label><br />
+                    <label>
+                        Jelszó: <br />
+                        <input type="password" name="jelszo" />
+                    </label><br />
+                    <input type="reset" name="reset-btn" value="Törlés" />
+                    <input type="submit" name="login-submit-btn" value="Bejelentkezés" />
+                    </fieldset>
+            </form>
+            <form id="loginWithUsernameForm" action="#" method="POST" enctype="multipart/form-data" name="loginWithUsernameForm">
+                <fieldset>
+                    <h4> ---- vagy ---- </h4>
+
+                    <h2> Bejelentkezés felhasználónévvel </h2>
                     <label>
                         Felhasználónév: <br />
                         <input type="text" name="felhasznalonev" />
@@ -58,13 +75,19 @@
         const uzenet = "Üdvözöllek az oldalamon!";
         document.getElementById("greetings").innerText = uzenet;
 
-        const loginForm = document.getElementById("loginForm");
+        const loginWithEmailForm = document.getElementById("loginWithEmailForm");
+        const loginWithUsernameForm = document.getElementById("loginWithUsernameForm");
         const messageBox = document.getElementById("message");
         const errorBox = document.getElementById("error-messages");
 
-        loginForm.addEventListener("submit", async (e) => {
-            e.preventDefault();
+        const authMethod = loginWithEmailForm ?? loginWithUsernameForm;
 
+        if (!authMethod) {
+            console.error("No login form found!");
+        } else {
+            authMethod.addEventListener("submit", async (e) => {
+            e.preventDefault();
+        
             // Trim input
             const username = e.target["felhasznalonev"].value.trim();
             const password = e.target["jelszo"].value.trim();
