@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Saját oldal</title>
+    <link rel="stylesheet" href="../css/style.css" />
+</head>
+
+<body>
+    <header>
+        <h1>Üdvözöllek az oldalamon</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Főoldal</a></li>
+                <li><a href="signup.html">Regisztráció</a></li>
+                <li><a href="login.html">Bejelentkezés</a></li>
+                <li><a href="#">Kijelentkezés</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="page">
+        <div style="margin: auto; width: 50%; text-align: center">
+            <h1>Bejelentkezés</h1>
+            <form id="loginForm" action="#" method="POST" enctype="multipart/form-data" name="loginForm">
+                <fieldset>
+                    <legend>Bejelentkezés adatok</legend>
+                    <label>
+                        Felhasználónév: <br />
+                        <input type="text" name="felhasznalonev" />
+                    </label><br />
+                    <label>
+                        Jelszó: <br />
+                        <input type="password" name="jelszo" />
+                    </label><br />
+                    <input type="reset" name="reset-btn" value="Törlés" />
+                    <input type="submit" name="login-submit-btn" value="Bejelentkezés" />
+                </fieldset>
+            </form>
+            <hr>
+            <div id="greetings"></div>
+            <div id="message"></div>
+            <div id="error-messages"></div>
+            <hr>
+        </div>
+        <div style="margin: auto; width: 50%; text-align: center">
+            <a href="signup.html">Nincs még fiókod? Regisztrálj itt!</a>
+        </div>
+    </main>
+    <script>
+        const dummyLoginDataToAccept = {
+            "test": "test",
+            "admin": "123456",
+            "user": "1234"
+        };
+
+        const uzenet = "Üdvözöllek az oldalamon!";
+        document.getElementById("greetings").innerText = uzenet;
+
+        const loginForm = document.getElementById("loginForm");
+        const messageBox = document.getElementById("message");
+        const errorBox = document.getElementById("error-messages");
+
+        loginForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            // Trim input
+            const username = e.target["felhasznalonev"].value.trim();
+            const password = e.target["jelszo"].value.trim();
+            let errors = [];
+
+            // Validation
+            if (username === "") errors.push("A felhasználónév megadása kötelező!");
+            if (password === "") errors.push("A jelszó megadása kötelező!");
+
+            // Dummy login check
+            if (username in dummyLoginDataToAccept && password === dummyLoginDataToAccept[username]) {
+                messageBox.style.color = "green";
+                messageBox.innerHTML = "Sikeres teszt bejelentkezés!";
+                errorBox.innerText = "";
+                return;
+            }
+
+            // Show validation errors
+            if (errors.length > 0) {
+                messageBox.style.color = "red";
+                messageBox.innerHTML = errors.join("<br>");
+                errorBox.innerText = errors.join("\n");
+                return;
+            }
+
+            // Fetch users.json for demo (errors logged)
+            try {
+                const fiokok = await fetch('json/users.json');
+                if (!fiokok.ok) throw new Error('Hálózati hiba a users.json betöltésekor');
+                const data = await fiokok.json();
+                console.log("Users.json loaded:", data);
+            } catch (error) {
+                console.error("Hiba:", error);
+            }
+
+            // Successful login message
+            messageBox.style.color = "green";
+            messageBox.innerHTML = "Sikeres bejelentkezés!";
+            errorBox.innerText = "";
+        });
+    </script>
+
+</body>
+
+</html>
