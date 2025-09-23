@@ -1,10 +1,28 @@
 {
     "users": [
         {
-            "username": "a",
+            "email": "v@v.v",
+            "username": "v",
+            "password": "v",
+            "hashed-password": ""
+        },
+        {
+            "email": "test@gmail.com",
+            "username": "test",
+            "password": "test",
+            "hashed-password": ""
+        },
+        {
+            "email": "admin@gmail.com",
+            "username": "admin",
             "password": "123456",
             "hashed-password": "$2y$10$Qj2AA7jCZ.lj.zwfUbD8Guq7rCrRlb30xYh6QXMX35WbJyV3W3qEe",
-            "email": "cimbi@gmail.com"
+        },
+        {
+            "email": "user@gmail.com",
+            "username": "user",
+            "password": "1234",
+            "hashed-password": ""
         }
     ]
 }
