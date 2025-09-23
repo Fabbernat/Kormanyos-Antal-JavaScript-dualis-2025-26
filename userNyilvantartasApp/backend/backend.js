@@ -128,3 +128,18 @@ app.patch("/users/:id", (req, res) => {
 });
 
 // Nothing changes in the browser (tried in Mozilla Firefox, Microsoft Edge and Google Chrome), no matter what I modify on this app.js. I can eveny write syntaaxtically incorrect code or deete the whole, it still does not modify. I tried F5, Ctrl+F5, deleting every cookie, but I'm not a Node expert so I have no idea what happends under the hood. I run the server with npm run dev.
+
+const Database = require('better-sqlite3');
+const db = new Database('users.db');
+
+// Ensure table exists (for safety)
+db.prepare(`
+  CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    email TEXT UNIQUE NOT NULL,
+    username TEXT UNIQUE NOT NULL,
+    password TEXT NOT NULL
+  )
+`).run();
+
+module.exports = db;
