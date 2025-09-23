@@ -1,3 +1,5 @@
+console.log(">>> Running:", import.meta.url || __filename);
+
 import express from "express";
 
 let books = [
