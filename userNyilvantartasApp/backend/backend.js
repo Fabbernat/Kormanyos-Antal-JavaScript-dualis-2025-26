@@ -13,6 +13,7 @@ const PORT = 3000;
 const app = express();
 
 app.use(express.json());
+app.use(express.static("html"));
 
 app.listen(PORT, () => {
   console.log(`Server runs on http://localhost:${PORT}`);
