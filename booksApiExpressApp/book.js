@@ -34,8 +34,8 @@ if (!books.length) {
     "Orwell"
   );
   db.prepare("INSERT INTO books (title, author) VALUES (?, ?)").run(
-    "Harry Potter",
-    "J.K. Rowling"
+    "Harry Potter és a Bölcsek Köve",
+    "J. K. Rowling"
   );
   db.prepare("INSERT INTO books (title, author) VALUES (?, ?)").run(
     "Tom Sawyer",
@@ -44,6 +44,18 @@ if (!books.length) {
   db.prepare("INSERT INTO books (title, author) VALUES (?, ?)").run(
     "Nyugaton a helyzet változatlan",
     "Hamingway"
+  );
+  db.prepare("INSERT INTO books (title, author) VALUES (?, ?)").run(
+    "A Pál utcai fiúk",
+    "Molnár Ferenc"
+  );
+  db.prepare("INSERT INTO books (title, author) VALUES (?, ?)").run(
+    "A Gyűrűk Ura",
+    "John Ronald Reuel Tolkien"
+  );
+  db.prepare("INSERT INTO books (title, author) VALUES (?, ?)").run(
+    "Dűne",
+    "Frank Herbert"
   );
 }
 app.use(express.json());
