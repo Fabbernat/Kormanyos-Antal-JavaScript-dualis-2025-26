@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "kormanyos-antal-bejelentkezes-es-regisztracio-oldal",
   "version": "1.0.0",
   "main": "logout.js",
